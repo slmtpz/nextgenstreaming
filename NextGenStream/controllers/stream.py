@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 def get_stream(req):
-    pass
+    return render(req, 'NextGenStream/')
