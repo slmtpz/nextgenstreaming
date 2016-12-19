@@ -24,6 +24,10 @@
     </table>
     <button type="submit" class="btn btn-success" id="player-start">Play</button>
     </form>
+    <div id="player-container">
+					<div id="player"></div>
+					<div id="player-tip"></div>
+				</div>
     <script>
 		function play() {
 			var src = "rtmp://54.255.176.172/live/newsnation_360p";
@@ -32,9 +36,7 @@
 			}
 			return false;
 		}
-		$(document).ready(function() {
-			play();
-		});
+		play();
 	</script>
 </body>
 </html>
