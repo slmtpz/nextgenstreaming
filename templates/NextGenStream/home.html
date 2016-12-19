@@ -1,10 +1,40 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="{% static 'js/home.js' %}"></script>
 </head>
 <body>
+    <form id="player-form">
+        <table style="width:100%">
+        <tr>
+            <th>Video Quality</th>
+            <th><input type="radio" name="videoQuality" value="low" checked> Low<br></th>
+            <th><input type="radio" name="videoQuality" value="high" checked> High<br></th>
+        </tr>
+            <tr>
+        <th>Screen Quality</th>
+        <th><input type="radio" name="screenQuality" value="low" checked> Low<br></th>
+        <th><input type="radio" name="screenQuality" value="high" checked> High<br></th>
+    </tr>
 
+    </table>
+    <button type="submit" class="btn btn-success" id="player-start">Play</button>
+    </form>
+    <script>
+		function play() {
+			var src = "rtmp://54.255.176.172/live/newsnation_360p";
+			if (src) {
+				playRTMP(src);
+			}
+			return false;
+		}
+		$(document).ready(function() {
+			play();
+		});
+	</script>
 </body>
 </html>
