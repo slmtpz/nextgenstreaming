@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> title</title>
 </head>
 <body>
+<div>
+    {% for elem in streamer_list %}
+    <p> {{ elem.name }} </p>
+    <p> {{ elem.channels.cl }}</p>
+    <p> {{ elem.channels.ch }} </p>
+    <p> {{ elem.channels.sl }} </p>
+    <p> {{ elem.channels.sh }} </p>
+</div>
+{% endfor %}
 
 </body>
 </html>

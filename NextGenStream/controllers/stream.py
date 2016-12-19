@@ -1,7 +1,26 @@
 from django.shortcuts import render
 from NextGenStream.utils.constants import *
 
-streamer_list = []
+streamer_list = [
+    {
+        'name': 'name1',
+        'channels': {
+            'cl': 'cl1',
+            'ch': 'ch2',
+            'sl': 'sl1',
+            'sh': 'sh1'
+        }
+    },
+    {
+        'name': 'name2',
+        'channels': {
+            'cl': 'cl1',
+            'ch': 'ch2',
+            'sl': 'sl1',
+            'sh': 'sh1'
+        }
+    }
+]
 
 
 def init_stream(req):
@@ -26,4 +45,4 @@ def remove_stream(req):
 
 
 def get_streamers(req):
-    return render(req, 'NextGenStream/home.html', streamer_list)
+    return render(req, 'NextGenStream/home.html', {'streamer_list': streamer_list})
