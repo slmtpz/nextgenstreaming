@@ -1,8 +1,26 @@
 from django.shortcuts import render
 from NextGenStream.utils.constants import *
-import json
 
-streamer_list = []
+streamer_list = [
+    {
+        'name': 'huloog',
+        'channels': {
+            'cl': 'rtmp://46.101.172.142/llive/huloo-sl.sdp',
+            'ch': 'ch2',
+            'sl': 'sl1',
+            'sh': 'sh1'
+        }
+    },
+    {
+        'name': 'name2',
+        'channels': {
+            'cl': 'rtmp://54.255.176.172/live/newsnation_360p',
+            'ch': 'ch2',
+            'sl': 'sl1',
+            'sh': 'sh1'
+        }
+    }
+]
 
 @csrf_exempt
 def init_stream(req):
@@ -27,4 +45,4 @@ def remove_stream(req):
 
 
 def get_streamers(req):
-    return render(req, 'NextGenStream/home.html', json.dumps(streamer_list))
+    return render(req, 'NextGenStream/home.html', {'streamer_list': streamer_list})

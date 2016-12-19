@@ -1,0 +1,14 @@
+.block1 {
+    width: 640px;
+    border: 1px solid green;
+    position: relative;
+}
+
+.block2 {
+    color: blue;
+    width: 160px;
+    border: 2px solid black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
