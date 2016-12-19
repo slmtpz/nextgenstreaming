@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from NextGenStream.utils.constants import *
-import json
 
 streamer_list = []
 
@@ -27,4 +26,4 @@ def remove_stream(req):
 
 
 def get_streamers(req):
-    return render(req, 'NextGenStream/home.html', json.dumps(streamer_list))
+    return render(req, 'NextGenStream/home.html', streamer_list)
