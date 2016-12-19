@@ -6,37 +6,104 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="{% static 'js/home.js' %}"></script>
+    <script type="text/css">
+        .block1 {
+            width: 640px;
+            height: 480px;
+            border: 1px solid green;
+            position: relative;
+        }
+
+        .block2 {
+            color: blue;
+            width: 160px;
+            height: 120px;
+            border: 2px solid black;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            z-index: 3;
+        }
+    </script>
 </head>
 <body>
-    <form id="player-form">
-        <table style="width:100%">
-        <tr>
-            <th>Video Quality</th>
-            <th><input type="radio" name="videoQuality" value="low" checked> Low<br></th>
-            <th><input type="radio" name="videoQuality" value="high" checked> High<br></th>
-        </tr>
-            <tr>
-        <th>Screen Quality</th>
-        <th><input type="radio" name="screenQuality" value="low" checked> Low<br></th>
-        <th><input type="radio" name="screenQuality" value="high" checked> High<br></th>
-    </tr>
+    <form id="player-form" method="get">
+        <table border="1">
+            {% for elem in streamer_list %}
+           <tr>
+               <th>
+                    {{ elem.name }}
+
+               </th>
+                <th>
+                    <input type="radio" name="VideoQuality" value={{ elem.channels.cl }} >Video Low <br>
+                </th>
+                <th>
+                    <input type="radio" name="VideoQuality" value={{ elem.channels.ch }} checked>Video High <br>
+                </th>
+                <th>
+                    <input type="radio" name="ScreenQuality" value={{ elem.channels.sl }} >Screen Low <br>
+                </th>
+                <th>
+                    <input type="radio" name="ScreenQuality" value={{ elem.channels.sh }} checked>Screen High <br>
+                </th>
+           </tr>
+            {% endfor %}
 
     </table>
-    <button type="submit" class="btn btn-success" id="player-start">Play</button>
+    <button type="button" name="button" onclick="play(this.form)">Play</button>
     </form>
-    <div id="player-container">
-					<div id="player"></div>
-					<div id="player-tip"></div>
-				</div>
-    <script>
-		function play() {
-			var src = "rtmp://54.255.176.172/live/newsnation_360p";
-			if (src) {
-				playRTMP(src);
+    <div id="main_container">
+            <div class="block1" id="video_container">
+
+            </div>
+            <div class="block2" id="screen_container">
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+		function play(form) {
+			//var src = "rtmp://54.255.176.172/live/newsnation_360p";
+			//var src = $('VideoQuality').val().trim();
+			var src = form.VideoQuality.value;
+            if (src) {
+
+                playRTMP(src,'video_container','640','480');
+                playRTMP(src,'screen_container','160','120');
+
 			}
 			return false;
 		}
-		play();
+
+		/*$(document).ready(function(){
+		    play();
+		    $('#player-form').submit(play);
+		});*/
+
+		//play();
 	</script>
 </body>
 </html>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> title</title>
+</head>
+<body>
+<div>
+    {% for elem in streamer_list %}
+    <p> {{ elem.name }} </p>
+    <p> {{ elem.channels.cl }}</p>
+    <p> {{ elem.channels.ch }} </p>
+    <p> {{ elem.channels.sl }} </p>
+    <p> {{ elem.channels.sh }} </p>
+</div>
+{% endfor %}
+
+</body>
+</html>
+-->
