@@ -4,31 +4,65 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>NextGenStream</title>
     <script src="{% static 'js/home.js' %}"></script>
-    <script type="text/css">
+    <style type="text/css">
         .block1 {
-            width: 640px;
-            height: 480px;
+            width: 960px;
+            height: 720px;
             border: 1px solid green;
             position: relative;
         }
 
         .block2 {
             color: blue;
-            width: 160px;
-            height: 120px;
+            width: 320px;
+            height: 240px;
             border: 2px solid black;
             position: absolute;
-            top: 0px;
-            right: 0px;
+            right: 0;
+            top: 0;
             z-index: 3;
         }
-    </script>
+        .block3 {
+            color: blue;
+            width: 320px;
+            height: 240px;
+            border: 2px solid black;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 3;
+        }
+        .block4 {
+            color: blue;
+            width: 320px;
+            height: 240px;
+            border: 2px solid black;
+            position: absolute;
+            right: 0;
+            bottom: 30px;
+            z-index: 3;
+        }
+        .block5 {
+            color: blue;
+            width: 320px;
+            height: 240px;
+            border: 2px solid black;
+            position: absolute;
+            left: 0;
+            bottom: 30px;
+            z-index: 3;
+        }
+
+    </style>
+
 </head>
 <body>
+
     <form id="player-form" method="get">
-        <table border="1">
+        <table border="1"  style="width: 50%; margin: 0 auto;">
+            <caption style="font-size: xx-large">Choose streamer you want watch!!!</caption>
             {% for elem in streamer_list %}
            <tr>
                <th>
@@ -49,29 +83,57 @@
                 </th>
            </tr>
             {% endfor %}
+            <tr>
+                <th>Video Position</th>
+                <th><input type="radio" name="pos" value="top-right" align="left" checked>Top-Right <br> </th>
+                <th><input type="radio" name="pos" value="top-left" align="left" >Top-Left   <br> </th>
+                <th><input type="radio" name="pos" value="bottom-right" align="left">Bottom-Right <br> </th>
+                <th><input type="radio" name="pos" value="bottom-left" align="left">Bottom-Left <br> </th>
+            </tr>
+        </table>
 
-    </table>
-    <button type="button" name="button" onclick="play(this.form)">Play</button>
+            <button type="button" name="button" style="left: 48%; position: relative; margin: 0 auto; " onclick="play(this.form)">Play</button>
+
     </form>
-    <div id="main_container">
-            <div class="block1" id="video_container">
+    <div id="main_container" style="width: 60%; margin: 0 auto;">
 
-            </div>
-            <div class="block2" id="screen_container">
-
-            </div>
-        </div>
-
+        <!--<div class="block1">
+                <object type="application/x-shockwave-flash" id="screen_container" data="https://www.hlsplayer.net/player/grindplayer/GrindPlayer.swf" width="960" height="720" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp%3A//54.255.176.172/live/newsnation_360p&amp;streamType=live&amp;scaleMode=letterbox"></object>
+                <div class="block2" >
+                    <object type="application/x-shockwave-flash" id="video_container" data="https://www.hlsplayer.net/player/grindplayer/GrindPlayer.swf" width="240" height="180" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src=rtmp%3A//54.255.176.172/live/newsnation_360p&amp;streamType=live&amp;scaleMode=letterbox"></object>
+                </div>
+        </div> -->
     </div>
+
+
     <script type="text/javascript">
 		function play(form) {
-			//var src = "rtmp://54.255.176.172/live/newsnation_360p";
+			//var source = "rtmp://54.255.176.172/live/newsnation_360p";
 			//var src = $('VideoQuality').val().trim();
-			var src = form.VideoQuality.value;
-            if (src) {
-
-                playRTMP(src,'video_container','640','480');
-                playRTMP(src,'screen_container','160','120');
+			var source = form.VideoQuality.value;
+			var src_screen = form.ScreenQuality.value;
+			var pos = form.pos.value;
+            if (source) {
+                //var div = document.create
+                var vid_pos;
+                if(pos === 'top-right'){
+                    vid_pos = 'block2';
+                }else if (pos === 'top-left'){
+                    vid_pos = 'block3';
+                }else if (pos === 'bottom-right'){
+                    vid_pos = 'block4';
+                }else {
+                    vid_pos = 'block5';
+                }
+                var outer_div = document.createElement('div');
+                outer_div.className = 'block1';
+                outer_div.innerHTML = '<object type="application/x-shockwave-flash" id="screen_container" data="https://www.hlsplayer.net/player/grindplayer/GrindPlayer.swf" width="960" height="720" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src='+src_screen+'&amp;streamType=live&amp;scaleMode=letterbox"></object> \
+                <div class="'+vid_pos+'" > \
+                    <object type="application/x-shockwave-flash" id="video_container" data="https://www.hlsplayer.net/player/grindplayer/GrindPlayer.swf" width="320" height="240" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="autoPlay=true&amp;src='+source+'&amp;streamType=live&amp;scaleMode=letterbox"></object> \
+                </div>';
+                document.getElementById('main_container').appendChild(outer_div);
+                //playRTMP(source,'screen_container','960','720');
+                //playRTMP(source,'video_container','240','180');
 
 			}
 			return false;
@@ -84,6 +146,7 @@
 
 		//play();
 	</script>
+
 </body>
 </html>
 <!--

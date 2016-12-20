@@ -5,7 +5,7 @@ streamer_list = [
     {
         'name': 'huloog',
         'channels': {
-            'cl': 'rtmp://46.101.172.142/llive/huloo-sl.sdp',
+            'cl': 'rtmp://54.255.176.172/live/newsnation_360p',
             'ch': 'ch2',
             'sl': 'sl1',
             'sh': 'sh1'
