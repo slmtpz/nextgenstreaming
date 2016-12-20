@@ -22,7 +22,7 @@ streamer_list = [
     }
 ]
 
-
+@csrf_exempt
 def init_stream(req):
     stream_dict = req.POST.dict()
     streamer_name = stream_dict(Constants.streamer_name)
